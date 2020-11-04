@@ -1,0 +1,78 @@
+package doudizhu;
+//斗地主综合案例：有序版本
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.Callable;
+
+public class Main {
+    public static void main(String[] args) {
+        List<String> colors = List.of("♠","♥","♣","♦");
+        List<String> numbers = List.of("2", "A", "K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3");
+        HashMap<Integer,String> hashMap= new HashMap<>();
+        hashMap.put(0,"大王");
+        hashMap.put(1,"小王");
+        int count = 1;
+        for (String color:colors) {
+            for (String number:numbers) {
+                String s = color + number;
+                count++;
+                hashMap.put(count,s);
+            }
+        }
+        System.out.println(hashMap);
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < 54; i++) {
+            list.add(i);
+        }
+        Collections.shuffle(list);
+        System.out.println(list);
+        List<Integer> dipai = new ArrayList<>();
+        List<Integer> person1 = new ArrayList<>();
+        List<Integer> person2 = new ArrayList<>();
+        List<Integer> person3 = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if (i>=51){
+                dipai.add(list.get(i));
+            }else if(i%3==0){
+                person1.add(list.get(i));
+            }else if (i%3==1){
+                person2.add(list.get(i));
+            }else if (i%3==2){
+                person3.add(list.get(i));
+            }
+        }
+        //sort方法默认是升序排序
+        Collections.sort(person1);
+        Collections.sort(person2);
+        Collections.sort(person3);
+        Collections.sort(dipai);
+        ArrayList<String> peprson1pai = new ArrayList<>();
+        ArrayList<String> peprson2pai = new ArrayList<>();
+        ArrayList<String> peprson3pai = new ArrayList<>();
+        ArrayList<String> dipaipai = new ArrayList<>();
+        for (Integer person1key:person1) {
+            String s = hashMap.get(person1key);
+            peprson1pai.add(s);
+        }
+        for (Integer person2key:person2) {
+            String s1 = hashMap.get(person2key);
+            peprson2pai.add(s1);
+        }
+        for (Integer peprson3key:person3){
+            String s3 = hashMap.get(peprson3key);
+            peprson3pai.add(s3);
+        }
+        for (Integer dipaikey:dipai) {
+            String s4 = hashMap.get(dipaikey);
+            dipaipai.add(s4);
+        }
+        System.out.println(peprson1pai);
+        System.out.println(peprson2pai);
+        System.out.println(peprson3pai);
+        System.out.println(dipaipai);
+
+
+    }
+}
